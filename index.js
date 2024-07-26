@@ -40,18 +40,3 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
-const fetch = require('node-fetch');
-
-const url = 'https://api.themoviedb.org/3/movie/278/images?language=en';
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYzYzOWZhYWYwYWY3NTM5N2ZiYmNkYmU3MWI0MTRkOCIsIm5iZiI6MTcyMTk4NDE4Ni4xNzEzMTMsInN1YiI6IjY2YTM2M2I2ZDgzMzY1YThhMzE2NDcxNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.D42v3GJtF5bk_welJ995h_QUb_irzoGh_rxm3QNmyNo'
-  }
-};
-
-fetch(url, options)
-  .then(res => res.json())
-  .then(json => console.log(json.posters))
-  .catch(err => console.error('error:' + err));

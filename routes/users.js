@@ -10,11 +10,12 @@
 
 const express = require("express");
 const router = express.Router();
+const apiCaller = require("../apiCaller.js")
 
 /**
  * @desc Display all the users
  */
-router.get("/list-users", (req, res, next) => {
+router.get("/list-users", async (req, res, next) => {
     // Define the query
     query = "SELECT * FROM users"
 
@@ -28,6 +29,11 @@ router.get("/list-users", (req, res, next) => {
             }
         }
     );
+    result = await apiCaller.callAPI('278/images?language=en')
+
+    console.log(result)
+
+
 });
 
 /**
