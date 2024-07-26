@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoviePalz Profile</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+        }
+        .header {
+            background-color: #4B1651;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #DAA520;
+        }
+        .header .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+            position: relative;
+        }
+        .header .search-bar input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+        }
+        .header .menu {
+            display: flex;
+            align-items: center;
+        }
+        .header .menu a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .profile {
+            display: flex;
+            padding: 20px;
+        }
+        .profile .profile-info {
+            width: 250px;
+            text-align: center;
+        }
+        .profile .profile-info img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+        }
+        .profile .profile-info h2, .profile .profile-info p {
+            margin: 10px 0;
+        }
+        .profile .profile-info .friends {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .profile .profile-info .friends img {
+            width: 20px;
+            height: 20px;
+            margin-left: 5px;
+        }
+        .profile .content {
+            flex-grow: 1;
+            padding-left: 20px;
+        }
+        .profile .content h3 {
+            margin: 10px 0;
+        }
+        .profile .content .shows {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .profile .content .shows img {
+            width: 150px;
+            height: 220px;
+            margin: 10px;
+        }
+        .profile .settings {
+            width: 150px;
+            text-align: right;
+        }
+        .profile .settings a {
+            display: block;
+            color: white;
+            margin: 10px 0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">MOVIEPALZ</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+        </div>
+        <div class="menu">
+            <a href="#">Movies</a>
+            <a href="#">Party</a>
+            <a href="#">History</a>
+            <a href="#">Likes</a>
+            <a href="#">Pals</a>
+        </div>
+        <div class="profile-icon">
+            <img src="profile_icon.png" alt="Profile Icon" width="40">
+        </div>
+    </div>
+    <div class="profile">
+        <div class="profile-info">
+            <img src="profile_picture.png" alt="John Doe">
+            <h2>John Doe</h2>
+            <p>20 Friends</p>
+            <div class="friends">
+                <img src="friend1.png" alt="Friend 1">
+                <img src="friend2.png" alt="Friend 2">
+                <img src="friend3.png" alt="Friend 3">
+                <img src="friend4.png" alt="Friend 4">
+                <img src="friend5.png" alt="Friend 5">
+            </div>
+            <h3>Liked Shows</h3>
+            <div class="shows">
+                <img src="guardians.jpg" alt="Guardians of the Galaxy">
+                <img src="guardians.jpg" alt="Guardians of the Galaxy">
+                <img src="guardians.jpg" alt="Guardians of the Galaxy">
+                <img src="guardians.jpg" alt="Guardians of the Galaxy">
+                <img src="guardians.jpg" alt="Guardians of the Galaxy">
+            </div>
+        </div>
+        <div class="content">
+            <h3>Watched Shows</h3>
+            <div class="shows">
+                <img src="home_alone.jpg" alt="Home Alone">
+                <img src="home_alone.jpg" alt="Home Alone">
+                <img src="home_alone.jpg" alt="Home Alone">
+                <img src="home_alone.jpg" alt="Home Alone">
+                <img src="home_alone.jpg" alt="Home Alone">
+            </div>
+        </div>
+        <div class="settings">
+            <a href="#">Edit Profile</a>
+            <a href="#">Account settings</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoviePalz Main Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+        }
+        .header {
+            background-color: #4B1651;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #DAA520;
+        }
+        .header .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+            position: relative;
+        }
+        .header .search-bar input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 20px;
+            border: none;
+            outline: none;
+        }
+        .header .menu {
+            display: flex;
+            align-items: center;
+        }
+        .header .menu a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .header .profile-icon img {
+            width: 40px;
+            border-radius: 50%;
+        }
+        .main-content {
+            padding: 20px;
+        }
+        .banner {
+            position: relative;
+            text-align: center;
+        }
+        .banner img {
+            width: 100%;
+            height: auto;
+        }
+        .carousel-controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .carousel-controls span {
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+        }
+        .categories {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        .categories button {
+            background-color: #4B1651;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 20px;
+        }
+        .movie-thumbnails {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .movie-thumbnails img {
+            width: 150px;
+            height: auto;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">MOVIEPALZ</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+        </div>
+        <div class="menu">
+            <a href="#">Movies</a>
+            <a href="#">Party</a>
+            <a href="#">History</a>
+            <a href="#">Likes</a>
+            <a href="#">Pals</a>
+        </div>
+        <div class="profile-icon">
+            <img src="profile_icon.png" alt="Profile Icon">
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="banner">
+            <img src="banner_image.png" alt="Banner">
+            <div class="carousel-controls">
+                <span>&#9664;</span>
+                <span>&#9654;</span>
+            </div>
+        </div>
+        <div class="categories">
+            <button>Trending</button>
+            <button>Popular</button>
+            <button>Comedy</button>
+            <button>Romance</button>
+            <button>Thriller</button>
+            <button>Action</button>
+            <button>Kids</button>
+        </div>
+        <div class="movie-thumbnails">
+            <img src="home_alone.jpg" alt="Home Alone">
+            <img src="home_alone.jpg" alt="Home Alone">
+            <img src="home_alone.jpg" alt="Home Alone">
+            <img src="home_alone.jpg" alt="Home Alone">
+            <img src="home_alone.jpg" alt="Home Alone">
+        </div>
+    </div>
+</body>
+</html>
