@@ -26,6 +26,9 @@ global.db = new sqlite3.Database('./database.db',function(err){
 });
 
 // Handle requests to the home page 
+const homeRoutes = require('./routes/home');
+app.use('/home', homeRoutes)
+
 app.get('/', (req, res) => {
     res.send('Hello World!')
 });

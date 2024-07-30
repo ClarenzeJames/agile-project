@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 // var url = 'https://api.themoviedb.org/3/movie/278/images?language=en';
-var url = 'https://api.themoviedb.org/3/movie/';
+var url = 'https://api.themoviedb.org/3';
 const options = {
   method: 'GET',
   headers: {
@@ -12,7 +12,7 @@ const options = {
 
 async function callAPI(param){
     url = url + param
-    console.log(url)
+    // console.log(url)
     let result;
 
     response = await fetch(url, options)
