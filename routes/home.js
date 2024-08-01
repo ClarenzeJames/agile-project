@@ -4,9 +4,9 @@ const apiCaller = require("../apiCaller.js")
 
 router.get("/",async (req,res,next) => {
     // home page route, to get the top movies, place them in a banner as auto carousell.
-    const selectedGenre = req.query.genre || 28;
+    const selectedGenre = req.query.genre || '28';
     let popMovieArr = []
-    let movieArr = []
+    let genreMovieArr = []
     
     try {
         // top most banner will be popular movies
@@ -15,22 +15,24 @@ router.get("/",async (req,res,next) => {
             // popular movie for top carousell
             let popMovieObj = { posterPath: popularMovies.results[i].poster_path, genreID: popularMovies.results[i].genre_ids }
             popMovieArr.push(popMovieObj);
-
-
-            if(selectedGenre){
-                if (popularMovies.results[i].genre_ids.includes(parseInt(selectedGenre))){
-                    let movieObj = { posterPath: popularMovies.results[i].poster_path, genreID: popularMovies.results[i].genre_ids }
-                    movieArr.push(movieObj)
-                }
-                // console.log(movieArr)
-            }else{
-                let movieObj = { posterPath: popularMovies.results[i].poster_path, genreID: popularMovies.results[i].genre_ids }
-                movieArr.push(movieObj)
-            }
-
         }
-        // console.log(movieArr)
-        res.render('home.ejs', {popMovies: popMovieArr, movies: movieArr, selectedGenre: selectedGenre})
+        if(selectedGenre){
+            console.log(selectedGenre)
+            genreMovies = await apiCaller.genreAPI('/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=' + selectedGenre);
+            // console.log(genreMovies)
+            
+            // if (popularMovies.results[i].genre_ids.includes(parseInt(selectedGenre))){
+            //     let movieObj = { posterPath: popularMovies.results[i].poster_path, genreID: popularMovies.results[i].genre_ids }
+            //     movieArr.push(movieObj)
+            // }
+            for (i=0;i < genreMovies.results.length;i++){
+                let genreMovieObj = {posterPath: genreMovies.results[i].poster_path}
+                genreMovieArr.push(genreMovieObj)
+            }
+        }
+
+        console.log(selectedGenre)
+        res.render('home.ejs', {popMovies: popMovieArr, genreMovies: genreMovieArr, selectedGenre: selectedGenre})
 
         // if (popularMovies.results[1].genre_ids.includes(28)){
         //     console.log("yeet")

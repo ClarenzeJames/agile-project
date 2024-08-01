@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 
 // var url = 'https://api.themoviedb.org/3/movie/278/images?language=en';
 var url = 'https://api.themoviedb.org/3';
+var genreURL = 'https://api.themoviedb.org/3/discover'
 const options = {
   method: 'GET',
   headers: {
@@ -24,8 +25,23 @@ async function callAPI(param){
     return result
 }
 
+async function genreAPI(param){
+    genreURL = genreURL + param
+    // console.log(url)
+    let result;
+
+    response = await fetch(genreURL, options)
+        // .then(res => res.json())
+        // .then(json => {result = json})
+        // .catch(err => console.error('error:' + err));
+
+    result = await response.json()
+    return result
+}
+
 
 
 module.exports = {
-    callAPI: callAPI
+    callAPI: callAPI,
+    genreAPI: genreAPI
 }

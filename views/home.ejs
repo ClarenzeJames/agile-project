@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoviePalz Main Page</title>
+    <title>Netflix Style Carousel</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             margin: 0;
@@ -48,30 +49,58 @@
             width: 40px;
             border-radius: 50%;
         }
-        .main-content {
+
+        /* Container holding the entire carousel */
+        .netflix-carousel-container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
         }
-        .banner {
-            position: relative;
-            text-align: center;
+
+        /* Carousel wrapper */
+        .carousel-inner {
+            display: flex;
+            justify-content: flex-start;
         }
-        .banner img {
+
+        /* Individual carousel items */
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 200px;
+            transition: transform 0.3s;
+            margin: 0 5px;
+        }
+
+        /* Scale-up effect on hover */
+        .carousel-item img {
             width: 100%;
             height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s;
         }
-        .carousel-controls {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
-        }
-        .carousel-controls span {
+
+        .carousel-item:hover img {
+            transform: scale(1.1);
             cursor: pointer;
-            font-size: 24px;
+        }
+
+        /* Custom control styles */
+        .carousel-control-prev-icon, .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        /* Category Buttons */
+        .genre-button.active {
+            background-color: #007bff;
             color: white;
         }
+        .genre-button.inactive {
+            background-color: #ffffff;
+            color: #000;
+        }
+
         .categories {
             display: flex;
             justify-content: center;
@@ -86,41 +115,7 @@
             cursor: pointer;
             border-radius: 20px;
         }
-        .movie-thumbnails {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .carousel-inner img {
-            width: 150px;
-            height: auto;
-            margin: 10px;
-        }
-        .genre-button.active {
-            background-color: #007bff;
-            color: white;
-        }
-        .genre-button.inactive {
-            background-color: #f0f0f0;
-            color: #000;
-        }
     </style>
-    <script>
-        function changeGenre(genre) {
-            fetch(`/home?genre=${genre}`, {
-                method: 'GET',
-                headers: {
-                'Content-Type': 'text/html',
-                },
-            })
-                .then(response => response.text())
-                .then(html => {
-                    console.log(html)
-                document.querySelector('body').innerHTML = html;
-                $('.carousel').carousel(0); // Reset carousel to the first slide
-                });
-        }
-    </script>
 </head>
 <body>
     <div class="header">
@@ -139,60 +134,122 @@
             <img src="profile_icon.png" alt="Profile Icon">
         </div>
     </div>
-    <div class="main-content">
-        <!-- <div class="banner">
-            <img src="banner_image.png" alt="Banner">
-            <div class="carousel-controls">
-                <span>&#9664;</span>
-                <span>&#9654;</span>
-            </div>
-        </div> -->
-        <div id="carouselExample" class="carousel slide" data-ride="carousel">
+
+    <!-- Popular Movies Carousel -->
+    <div class="netflix-carousel-container">
+        <div id="netflixCarousel1" class="carousel slide">
             <div class="carousel-inner">
-                <% movies.forEach((movie,index) => { %>
-                    <img src="https://image.tmdb.org/t/p/w500/<%= movie.posterPath %>" class="d-block w-100" alt="<%= movie.title %>">
+                <% popMovies.forEach((movie, index) => { %>
+                    <div class="carousel-item <%= index < 5 ? 'active' : '' %>">
+                        <img src="https://image.tmdb.org/t/p/w500<%= movie.posterPath %>" alt="<%= movie.title %>">
+                    </div>
                 <% }) %>
             </div>
-            <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+            <a class="carousel-control-prev" href="#netflixCarousel1" role="button">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>
             </a>
-            <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+            <a class="carousel-control-next" href="#netflixCarousel1" role="button">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
         </div>
-        <div class="categories">
-            <!-- <button>Trending</button>
-            <button>Popular</button>
-            <button>Comedy</button>
-            <button>Romance</button>
-            <button>Thriller</button>
-            <button>Action</button>
-            <button>Kids</button> -->
-            <div id="genreButtons">
-                <button class="genre-button <%= selectedGenre === '28' ? 'active' : 'inactive' %>" onclick="changeGenre(28)">Action</button>
-                <button class="genre-button <%= selectedGenre === '878' ? 'active' : 'inactive' %>" onclick="changeGenre(878)">Sci-Fi</button>
-                <button class="genre-button <%= selectedGenre === '10749' ? 'active' : 'inactive' %>" onclick="changeGenre(10749)">Romance</button>
-                <!-- Add more genre buttons here -->
-            </div>
-            <select id="genreSelect" onchange="changeGenre()">
-                <option value="878">Sci-Fi</option>
-                <option value="28">Action</option>
-                <option value="10749">Romance</option>
-                <option value="35">Comedy</option>
-                <option value="53">Thriller</option>
-                <option value="16">Animation</option>
-                <!-- Add more genres here -->
-            </select>
-        </div>
-        <div class="movie-thumbnails">
-            <img src="home_alone.jpg" alt="Home Alone">
-            <img src="home_alone.jpg" alt="Home Alone">
-            <img src="home_alone.jpg" alt="Home Alone">
-            <img src="home_alone.jpg" alt="Home Alone">
-            <img src="home_alone.jpg" alt="Home Alone">
+    </div>
+
+    <!-- Buttons for genre movies -->
+    <div class="categories" id="categories">
+        <div id="genreButtons">
+            <button class="genre-button <%= selectedGenre === '28' ? 'active' : 'inactive' %>" onclick="changeGenre(28)">Action</button>
+            <button class="genre-button <%= selectedGenre === '878' ? 'active' : 'inactive' %>" onclick="changeGenre(878)">Sci-Fi</button>
+            <button class="genre-button <%= selectedGenre === '10749' ? 'active' : 'inactive' %>" onclick="changeGenre(10749)">Romance</button>
+            <button class="genre-button <%= selectedGenre === '35' ? 'active' : 'inactive' %>" onclick="changeGenre(35)">Comedy</button>
+            <button class="genre-button <%= selectedGenre === '53' ? 'active' : 'inactive' %>" onclick="changeGenre(53)">Thriller</button>
+            <button class="genre-button <%= selectedGenre === '16' ? 'active' : 'inactive' %>" onclick="changeGenre(16)">Animation</button>
+            <!-- Add more genre buttons here -->
         </div>
     </div>
+
+    <!-- Genre Movies Carousel -->
+    <div class="netflix-carousel-container">
+        <div id="genreCarouselContainer">
+            <div id="netflixCarousel2" class="carousel slide">
+                <div class="carousel-inner">
+                    <% genreMovies.forEach((movie, index) => { %>
+                        <div class="carousel-item <%= index < 5 ? 'active' : '' %>">
+                            <img src="https://image.tmdb.org/t/p/w500<%= movie.posterPath %>" alt="<%= movie.title %>">
+                        </div>
+                    <% }) %>
+                </div>
+                <a class="carousel-control-prev" href="#netflixCarousel2" role="button">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#netflixCarousel2" role="button">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Make initializeCarousel globally accessible
+        function initializeCarousel(carouselId) {
+            const $carousel = $(carouselId);
+            $carousel.carousel({ interval: false }); // Disable auto-scrolling
+
+            const items = $carousel.find('.carousel-item');
+            const itemWidth = items.outerWidth(true);
+            const visibleItems = Math.floor($carousel.closest('.netflix-carousel-container').width() / itemWidth);
+            let currentPosition = 0;
+
+            function updateCarousel() {
+                items.removeClass('active');
+                for (let i = currentPosition; i < currentPosition + visibleItems; i++) {
+                    $(items[i]).addClass('active');
+                }
+            }
+
+            $carousel.find('.carousel-control-next').click(function() {
+                if (currentPosition + visibleItems < items.length) {
+                    currentPosition++;
+                    updateCarousel();
+                }
+            });
+
+            $carousel.find('.carousel-control-prev').click(function() {
+                if (currentPosition > 0) {
+                    currentPosition--;
+                    updateCarousel();
+                }
+            });
+
+            updateCarousel(); // Initialize the carousel
+        }
+
+        function changeGenre(genre) {
+            fetch(`/home?genre=${genre}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'text/html',
+                },
+            })
+            .then(response => response.text())
+            .then(html => {
+                document.querySelector('#genreCarouselContainer').innerHTML = $(html).find('#genreCarouselContainer').html();
+                document.querySelector('#genreButtons').innerHTML = $(html).find('#genreButtons').html()
+                initializeCarousel('#netflixCarousel2'); // Re-initialize the carousel after content update
+            });
+        }
+
+        $(document).ready(function() {
+            // Initialize the carousels
+            initializeCarousel('#netflixCarousel1');
+            initializeCarousel('#netflixCarousel2');
+        });
+    </script>
 </body>
 </html>
