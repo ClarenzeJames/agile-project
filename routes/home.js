@@ -4,11 +4,45 @@ const apiCaller = require("../apiCaller.js")
 
 router.get("/",async (req,res,next) => {
     // home page route, to get the top movies, place them in a banner as auto carousell.
-
+    const selectedGenre = req.query.genre || 28;
+    let popMovieArr = []
+    let movieArr = []
     
     try {
+        // top most banner will be popular movies
         popularMovies = await apiCaller.callAPI('/movie/popular?language=en-US&page=1')
-        console.log(popularMovies.results[1].poster_path)
+        for (i=0;i < popularMovies.results.length;i++){
+            // popular movie for top carousell
+            let popMovieObj = { posterPath: popularMovies.results[i].poster_path, genreID: popularMovies.results[i].genre_ids }
+            popMovieArr.push(popMovieObj);
+
+
+            if(selectedGenre){
+                if (popularMovies.results[i].genre_ids.includes(parseInt(selectedGenre))){
+                    let movieObj = { posterPath: popularMovies.results[i].poster_path, genreID: popularMovies.results[i].genre_ids }
+                    movieArr.push(movieObj)
+                }
+                // console.log(movieArr)
+            }else{
+                let movieObj = { posterPath: popularMovies.results[i].poster_path, genreID: popularMovies.results[i].genre_ids }
+                movieArr.push(movieObj)
+            }
+
+        }
+        // console.log(movieArr)
+        res.render('home.ejs', {popMovies: popMovieArr, movies: movieArr, selectedGenre: selectedGenre})
+
+        // if (popularMovies.results[1].genre_ids.includes(28)){
+        //     console.log("yeet")
+        // }
+        // console.log(popularMovies.results[1]) //  way to access the poster path
+        // loop through popularMovies.results, access the .poster_path, insert into another array, pass that arrray into the EJS template
+        // eg. res.render('home.ejs', {popularMovies: [theArrayName]})
+
+        // bottom carousel will be 'trending API'
+
+        
+        
     } catch (error) {
         next(error)
     }
@@ -16,5 +50,7 @@ router.get("/",async (req,res,next) => {
 
     // console.log(popularMovies);
 })
+
+// need add an onClick? or just render everything
 
 module.exports = router;

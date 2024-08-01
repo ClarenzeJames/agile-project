@@ -15,6 +15,8 @@ Image Access point: https://image.tmdb.org/t/p/w500/
    - /movie/popular?language=en-US&page={pageNumber}
    - Params:
      - {pageNumber} -- for the page number
+   - Trending: 
+     - /trending/movie/week?language=en-US
 5. Latest:
    - /movie/latest
 6. List:
@@ -100,3 +102,14 @@ Image Access point: https://image.tmdb.org/t/p/w500/
     }]}
 
    ```
+
+   <% movies.forEach((movie, index) => { %>
+                <% if (movie.genre === selectedGenre) { %>
+                    <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                    <img src="<%= movie.image %>" class="d-block w-100" alt="<%= movie.title %>">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5><%= movie.title %></h5>
+                    </div>
+                    </div>
+                <% } %>
+                <% }) %>
