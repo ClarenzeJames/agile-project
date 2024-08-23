@@ -1,7 +1,8 @@
 const fetch = require('node-fetch');
 
 // var url = 'https://api.themoviedb.org/3/movie/278/images?language=en';
-var url = 'https://api.themoviedb.org/3';
+// 'https://api.themoviedb.org/3/movie/changes?page=1'
+var url = `https://api.themoviedb.org/3`;
 var genreURL = 'https://api.themoviedb.org/3/discover'
 const options = {
   method: 'GET',
@@ -12,11 +13,12 @@ const options = {
 };
 
 async function callAPI(param){
-    url = url + param
+    // url = url + param
     // console.log(url)
     let result;
+    console.log(url)
 
-    response = await fetch(url, options)
+    response = await fetch(`https://api.themoviedb.org/3${param}`, options)
         // .then(res => res.json())
         // .then(json => {result = json})
         // .catch(err => console.error('error:' + err));

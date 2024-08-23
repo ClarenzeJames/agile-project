@@ -11,6 +11,7 @@ router.get("/",async (req,res,next) => {
     try {
         // top most banner will be popular movies
         popularMovies = await apiCaller.callAPI('/movie/popular?language=en-US&page=1')
+        console.log(popularMovies)
         for (i=0;i < popularMovies.results.length;i++){
             // popular movie for top carousell
             let popMovieObj = { posterPath: popularMovies.results[i].poster_path, genreID: popularMovies.results[i].genre_ids }

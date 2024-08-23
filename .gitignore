@@ -2,3 +2,5 @@ node_modules
 *.db
 .vscode
 old-home.ejs
+old-profile.ejs
+public/assets/video_test.mp4

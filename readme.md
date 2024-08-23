@@ -113,3 +113,96 @@ Image Access point: https://image.tmdb.org/t/p/w500/
                     </div>
                 <% } %>
                 <% }) %>
+
+For watch history
+"results": [
+    {
+      "id": 1336683,
+      "adult": true
+    },
+    {
+      "id": 344627,
+      "adult": true
+    },
+    {
+      "id": 1336677,
+      "adult": false
+    },
+    {
+      "id": 1336688,
+      "adult": false
+    },
+    {
+      "id": 1292670,
+      "adult": false
+    },
+    {
+      "id": 1292677,
+      "adult": false
+    },
+    {
+      "id": 1336687,
+      "adult": false
+    },
+    {
+      "id": 819277,
+      "adult": false
+    },
+    {
+      "id": 1323150,
+      "adult": false
+    },
+    {
+      "id": 1336352,
+      "adult": false
+    },
+    {
+      "id": 1081088,
+      "adult": false
+    }]
+
+for liked shows:
+{
+      "id": 1220808,
+      "adult": false
+    },
+    {
+      "id": 1263763,
+      "adult": false
+    },
+    {
+      "id": 1302057,
+      "adult": false
+    },
+    {
+      "id": 1310507,
+      "adult": false
+    },
+    {
+      "id": 1319086,
+      "adult": false
+    },
+    {
+      "id": 1319482,
+      "adult": false
+    },
+    {
+      "id": 1320330,
+      "adult": false
+    },
+    {
+      "id": 1320541,
+      "adult": false
+    },
+    {
+      "id": 1323921,
+      "adult": false
+    },
+    {
+      "id": 1323934,
+      "adult": false
+    },
+    {
+      "id": 1323943,
+      "adult": false
+    }

@@ -1,22 +1,22 @@
 /**
-* index.js
-* This is your main app entry point
-*/
+ * index.js
+ * This is your main app entry point
+ */
 
 // Set up express, bodyparser and EJS
-const express = require('express');
+const express = require("express");
 const app = express();
 const port = 3000;
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('view engine', 'ejs'); // set the app to use ejs for rendering
-app.use(express.static(__dirname + '/public')); // set location of static files
+app.set("view engine", "ejs"); // set the app to use ejs for rendering
+app.use(express.static(__dirname + "/public")); // set location of static files
 
 // Set up SQLite
 // Items in the global namespace are accessible throught out the node application
-const sqlite3 = require('sqlite3').verbose();
-global.db = new sqlite3.Database('./database.db',function(err){
-    if(err){
+const sqlite3 = require("sqlite3").verbose();
+global.db = new sqlite3.Database("./database.db", function (err) {
+    if (err) {
         console.error(err);
         process.exit(1); // bail out we can't connect to the DB
     } else {
@@ -25,21 +25,29 @@ global.db = new sqlite3.Database('./database.db',function(err){
     }
 });
 
-// Handle requests to the home page 
-const homeRoutes = require('./routes/home');
-app.use('/home', homeRoutes)
+app.use(express.static("public"));
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
+app.get("/", (req, res) => {
+    res.send("Hello World!");
 });
 
-// Add all the route handlers in usersRoutes to the app under the path /users
-const usersRoutes = require('./routes/users');
-app.use('/users', usersRoutes);
+// Handle requests to the home page
+const homeRoutes = require("./routes/home");
+app.use("/home", homeRoutes);
 
+// Handle requests to the profile page
+const profileRoutes = require("./routes/profile");
+app.use("/profile", profileRoutes);
+
+// Handle requests to the movie playing page
+const videoRoutes = require("./routes/video");
+app.use("/video", videoRoutes);
+
+// Add all the route handlers in usersRoutes to the app under the path /users
+const usersRoutes = require("./routes/users");
+app.use("/users", usersRoutes);
 
 // Make the web application listen for HTTP requests
 app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
-})
-
+    console.log(`Example app listening on port ${port}`);
+});

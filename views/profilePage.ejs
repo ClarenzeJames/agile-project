@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoviePalz Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             margin: 0;
@@ -11,145 +12,188 @@
             background-color: #000;
             color: white;
         }
-        .header {
-            background-color: #4B1651;
-            padding: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .header .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #DAA520;
-        }
-        .header .search-bar {
-            flex-grow: 1;
-            margin: 0 20px;
-            position: relative;
-        }
-        .header .search-bar input {
-            width: 100%;
-            padding: 8px;
-            border-radius: 20px;
-            border: none;
-            outline: none;
-        }
-        .header .menu {
-            display: flex;
-            align-items: center;
-        }
-        .header .menu a {
-            color: white;
-            margin: 0 10px;
-            text-decoration: none;
-        }
         .profile {
-            display: flex;
+            padding: 30px 0;
+            height: 100%;
+        }
+        .profile-info img {
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 15px;
+        }
+        .profile-info .friends img {
+            width: 30px;
+            height: 30px;
+            margin: 0 2px;
+        }
+        /* Container holding the entire carousel */
+        .netflix-carousel-container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
         }
-        .profile .profile-info {
-            width: 250px;
-            text-align: center;
+
+        /* Carousel wrapper */
+        .carousel-inner {
+            display: flex;
+            justify-content: flex-start;
         }
-        .profile .profile-info img {
+
+        /* Individual carousel items */
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 200px;
+            transition: transform 0.3s;
+            margin: 0 5px;
+        }
+
+        /* Scale-up effect on hover */
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .carousel-item:hover img {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        /* Custom control styles */
+        .carousel-control-prev-icon, .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
             border-radius: 50%;
-            width: 100px;
-            height: 100px;
         }
-        .profile .profile-info h2, .profile .profile-info p {
-            margin: 10px 0;
+
+        .carousel-item a {
+            text-decoration: none;
         }
-        .profile .profile-info .friends {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .profile .profile-info .friends img {
-            width: 20px;
-            height: 20px;
-            margin-left: 5px;
-        }
-        .profile .content {
-            flex-grow: 1;
-            padding-left: 20px;
-        }
-        .profile .content h3 {
-            margin: 10px 0;
-        }
-        .profile .content .shows {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .profile .content .shows img {
-            width: 150px;
-            height: 220px;
-            margin: 10px;
-        }
-        .profile .settings {
-            width: 150px;
-            text-align: right;
-        }
-        .profile .settings a {
+
+        .settings a {
             display: block;
-            color: white;
+            color: #DAA520;
             margin: 10px 0;
             text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">MOVIEPALZ</div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search">
-        </div>
-        <div class="menu">
-            <a href="#">Movies</a>
-            <a href="#">Party</a>
-            <a href="#">History</a>
-            <a href="#">Likes</a>
-            <a href="#">Pals</a>
-        </div>
-        <div class="profile-icon">
-            <img src="profile_icon.png" alt="Profile Icon" width="40">
-        </div>
-    </div>
-    <div class="profile">
-        <div class="profile-info">
-            <img src="profile_picture.png" alt="John Doe">
-            <h2>John Doe</h2>
-            <p>20 Friends</p>
-            <div class="friends">
-                <img src="friend1.png" alt="Friend 1">
-                <img src="friend2.png" alt="Friend 2">
-                <img src="friend3.png" alt="Friend 3">
-                <img src="friend4.png" alt="Friend 4">
-                <img src="friend5.png" alt="Friend 5">
+    <%- include('partials/navBar') %>
+
+        <div class="profile">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="profile-info text-center">
+                        <img src="/assets/avatar.png" alt="John Doe" class="mb-3">
+                        <h2>John Doe</h2>
+                        <p>20 Friends</p>
+                        <div class="friends">
+                            <img src="/assets/avatar.png" alt="Friend 1">
+                            <img src="/assets/avatar.png" alt="Friend 2">
+                            <img src="/assets/avatar.png" alt="Friend 3">
+                            <img src="/assets/avatar.png" alt="Friend 4">
+                            <img src="/assets/avatar.png" alt="Friend 5">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="carousel-container">
+                        <h2>Watch History</h2>
+                        <div id="watchHistoryCarousel" class="carousel slide">
+                            <div class="carousel-inner">
+                                <% watchHist.forEach((movie, index) => { %>
+                                    <div class="carousel-item <%= index < 5 ? 'active' : '' %>">
+                                        <a href="/video?movieId=<%= movie.id %>">
+                                            <img src="https://image.tmdb.org/t/p/w500<%= movie.posterPath %>" alt="<%= movie.title %>">
+                                        </a>
+                                    </div>
+                                <% }) %>
+                            </div>
+                            <a class="carousel-control-prev" href="#watchHistoryCarousel" role="button">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#watchHistoryCarousel" role="button">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="carousel-container">
+                        <h2>Liked Movies</h2>
+                        <div id="likedMoviesCarousel" class="carousel slide">
+                            <div class="carousel-inner">
+                                <% likedMoviesArray.forEach((movie, index) => { %>
+                                    <div class="carousel-item <%= index < 5 ? 'active' : '' %>">
+                                        <a href="/video?movieId=<%= movie.id %>">
+                                            <img src="https://image.tmdb.org/t/p/w500<%= movie.posterPath %>" alt="<%= movie.title %>">
+                                        </a>
+                                    </div>
+                                <% }) %>
+                            </div>
+                            <a class="carousel-control-prev" href="#likedMoviesCarousel" role="button">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#likedMoviesCarousel" role="button">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <div class="settings">
+                        <a href="#">Edit Profile</a>
+                        <a href="#">Account settings</a>
+                    </div>
+                </div>
             </div>
-            <h3>Liked Shows</h3>
-            <div class="shows">
-                <img src="guardians.jpg" alt="Guardians of the Galaxy">
-                <img src="guardians.jpg" alt="Guardians of the Galaxy">
-                <img src="guardians.jpg" alt="Guardians of the Galaxy">
-                <img src="guardians.jpg" alt="Guardians of the Galaxy">
-                <img src="guardians.jpg" alt="Guardians of the Galaxy">
-            </div>
         </div>
-        <div class="content">
-            <h3>Watched Shows</h3>
-            <div class="shows">
-                <img src="home_alone.jpg" alt="Home Alone">
-                <img src="home_alone.jpg" alt="Home Alone">
-                <img src="home_alone.jpg" alt="Home Alone">
-                <img src="home_alone.jpg" alt="Home Alone">
-                <img src="home_alone.jpg" alt="Home Alone">
-            </div>
-        </div>
-        <div class="settings">
-            <a href="#">Edit Profile</a>
-            <a href="#">Account settings</a>
-        </div>
-    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function initializeCarousel(carouselId) {
+            const $carousel = $(carouselId);
+            $carousel.carousel({ interval: false });
+
+            const items = $carousel.find('.carousel-item');
+            const itemWidth = items.outerWidth(true);
+            const visibleItems = Math.floor($carousel.closest('.carousel-container').width() / itemWidth);
+            let currentPosition = 0;
+
+            function updateCarousel() {
+                items.removeClass('active');
+                for (let i = currentPosition; i < currentPosition + visibleItems; i++) {
+                    $(items[i]).addClass('active');
+                }
+            }
+
+            $carousel.find('.carousel-control-next').click(function() {
+                if (currentPosition + visibleItems < items.length) {
+                    currentPosition++;
+                    updateCarousel();
+                }
+            });
+
+            $carousel.find('.carousel-control-prev').click(function() {
+                if (currentPosition > 0) {
+                    currentPosition--;
+                    updateCarousel();
+                }
+            });
+
+            updateCarousel();
+        }
+
+        $(document).ready(function() {
+            initializeCarousel('#watchHistoryCarousel');
+            initializeCarousel('#likedMoviesCarousel');
+        });
+    </script>
 </body>
 </html>

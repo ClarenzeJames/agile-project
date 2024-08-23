@@ -1,0 +1,37 @@
+.header {
+    background-color: #4B1651;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #DAA520;
+}
+.header .search-bar {
+    flex-grow: 1;
+    margin: 0 20px;
+    position: relative;
+}
+.header .search-bar input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+}
+.header .menu {
+    display: flex;
+    align-items: center;
+}
+.header .menu a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+.header .profile-icon img {
+    width: 40px;
+    border-radius: 50%;
+}
