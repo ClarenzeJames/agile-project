@@ -8,6 +8,13 @@ const express = require("express");
 const app = express();
 const port = 3000;
 var bodyParser = require("body-parser");
+
+const session = require("express-session");
+
+const dotenv = require('dotenv');
+dotenv.config();
+const SESSION_SECRET = process.env.SESSIONS_SECRET
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs"); // set the app to use ejs for rendering
 app.use(express.static(__dirname + "/public")); // set location of static files
@@ -24,6 +31,16 @@ global.db = new sqlite3.Database("./database.db", function (err) {
         global.db.run("PRAGMA foreign_keys=ON"); // tell SQLite to pay attention to foreign key constraints
     }
 });
+
+// midde ware for sessions
+app.use(session({
+    secret: SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false } // Set to true if using HTTPS
+  }));
+
+session.isAuth = false;
 
 app.use(express.static("public"));
 
@@ -42,6 +59,10 @@ app.use("/profile", profileRoutes);
 // Handle requests to the movie playing page
 const videoRoutes = require("./routes/video");
 app.use("/video", videoRoutes);
+
+// Handle requests to the log in page
+const logInRoute = require("./routes/logIn");
+app.use("/login", logInRoute);
 
 // Add all the route handlers in usersRoutes to the app under the path /users
 const usersRoutes = require("./routes/users");

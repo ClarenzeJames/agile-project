@@ -2,7 +2,15 @@ const express = require("express");
 const router = express.Router();
 const apiCaller = require("../apiCaller.js")
 
-router.get("/",async (req,res,next) => {
+function isLoggedIn(req,res,next){
+    if(req.session.isAuth){
+        next();
+    }else{
+        res.redirect("./login")
+    }
+}
+
+router.get("/",isLoggedIn,async (req,res,next) => {
     // home page route, to get the top movies, place them in a banner as auto carousell.
     const selectedGenre = req.query.genre || '28';
     let popMovieArr = []
@@ -53,7 +61,5 @@ router.get("/",async (req,res,next) => {
 
     // console.log(popularMovies);
 })
-
-// need add an onClick? or just render everything
 
 module.exports = router;

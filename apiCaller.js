@@ -13,16 +13,9 @@ const options = {
 };
 
 async function callAPI(param){
-    // url = url + param
-    // console.log(url)
     let result;
-    console.log(url)
 
     response = await fetch(`https://api.themoviedb.org/3${param}`, options)
-        // .then(res => res.json())
-        // .then(json => {result = json})
-        // .catch(err => console.error('error:' + err));
-
     result = await response.json()
     return result
 }

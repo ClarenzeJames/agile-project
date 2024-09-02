@@ -2,9 +2,15 @@ const express = require("express");
 const router = express.Router();
 const apiCaller = require("../apiCaller.js")
 
+function isLoggedIn(req,res,next){
+    if(req.session.isAuth){
+        next();
+    }else{
+        res.redirect("./login")
+    }
+}
 
-
-router.get("/", async (req,res,next) => {
+router.get("/",isLoggedIn , async (req,res,next) => {
     let movieList;
     let watchHist = []
     let likedMoviesArray = []
