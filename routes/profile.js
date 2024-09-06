@@ -2,15 +2,52 @@ const express = require("express");
 const router = express.Router();
 const apiCaller = require("../apiCaller.js")
 
+// Helper Function to assist in querying the database
+function queryDB(query){
+    return new Promise ((resolve,reject) => {
+        global.db.all(query, (err,results) =>{ 
+            if(err){
+                console.log("not success in the query")
+                console.log(err)
+                reject(err)
+            }else{
+                console.log("success in the query")
+                resolve(results)
+            }
+        })
+    })
+}
+
 function isLoggedIn(req,res,next){
     if(req.session.isAuth){
         next();
     }else{
-        res.redirect("./login")
+        res.redirect("/login")
     }
 }
 
-router.get("/",isLoggedIn , async (req,res,next) => {
+router.get("/:id",isLoggedIn , async (req,res,next) => {
+    console.log("enter profile/id")
+    let userId = req.params.id
+    let userName;
+
+    let query = `SELECT U.user_id, U.user_name,
+                 F.favourites_id, F.user_id, F.favourites 
+                 FROM users AS U
+                 JOIN user_favourites AS F ON U.user_id = F.user_id
+                 WHERE U.user_id = "${userId}"`
+
+    // let query = `SELECT * FROM user_favourites`
+
+    try {
+        await queryDB(query).then(results => {
+            console.log(JSON.parse(results[0].favourites))
+            userName = results[0].user_name
+        })
+    } catch (error) {
+        
+    }
+
     let movieList;
     let watchHist = []
     let likedMoviesArray = []
@@ -43,10 +80,10 @@ router.get("/",isLoggedIn , async (req,res,next) => {
     }
 
 
-    console.log(watchHist)
-    console.log(likedMoviesArray)
+    // console.log(watchHist)
+    // console.log(likedMoviesArray)
 
-    res.render("profilePage.ejs", {watchHist: watchHist, likedMoviesArray: likedMoviesArray})
+    res.render("profilePage.ejs", {watchHist: watchHist, likedMoviesArray: likedMoviesArray,userName: userName})
 })
 
 

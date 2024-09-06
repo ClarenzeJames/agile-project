@@ -25,14 +25,27 @@ CREATE TABLE IF NOT EXISTS friendships (
 CREATE TABLE IF NOT EXISTS user_favourites (
     favourites_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INT NOT NULL,
-    favourites INT[],
+    favourites JSON,
     FOREIGN KEY (user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE IF NOT EXISTS shows (
+    show_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    likes INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS comments (
+    comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    show_id INTEGER NOT NULL,
+    comment_text TEXT NOT NULL,
+    FOREIGN KEY (show_id) REFERENCES shows(show_id)
 );
 
 -- Insert default data (if necessary here)
 
 -- Set up three users
 INSERT INTO users ('user_name','user_email','user_password') VALUES ('Simon Star','simonStar@mail.com','password');
+INSERT INTO user_favourites('user_id','favourites') VALUES (1,'[533535,1022789, 519182, 573435, 365177, 1160018]');
 -- INSERT INTO users ('user_name','user_password') VALUES ('John Bob','password');
 -- INSERT INTO users ('user_name','user_password') VALUES ('Steven Perry','password');
 

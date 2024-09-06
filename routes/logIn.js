@@ -40,7 +40,7 @@ router.post("/", async (req,res,next) => {
                 req.session.userId = result[0].user_id
                 req.session.user_name = result[0].user_name
 
-                res.redirect("./home")
+                res.redirect("/profile/1")
             }
         })
     } catch (error) {
