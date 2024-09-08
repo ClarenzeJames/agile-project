@@ -11,13 +11,14 @@ var bodyParser = require("body-parser");
 
 const session = require("express-session");
 
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 dotenv.config();
-const SESSION_SECRET = process.env.SESSIONS_SECRET
+const SESSION_SECRET = "AGILEPROJECTSECRET"
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set("view engine", "ejs"); // set the app to use ejs for rendering
-app.use(express.static(__dirname + "/public")); // set location of static files
+// app.use(express.static(__dirname + "/public")); // set location of static files
+app.use(express.static("public"));
 
 // Set up SQLite
 // Items in the global namespace are accessible throught out the node application
@@ -33,12 +34,14 @@ global.db = new sqlite3.Database("./database.db", function (err) {
 });
 
 // midde ware for sessions
-app.use(session({
-    secret: SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: false } // Set to true if using HTTPS
-  }));
+app.use(
+    session({
+        secret: SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        cookie: { secure: false }, // Set to true if using HTTPS
+    })
+);
 
 session.isAuth = false;
 
@@ -69,6 +72,76 @@ const usersRoutes = require("./routes/users");
 app.use("/users", usersRoutes);
 
 // Make the web application listen for HTTP requests
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+// app.listen(port, () => {
+//     console.log(`Example app listening on port ${port}`);
+// });
+
+// Socket IO stuff
+// set up socket IOs
+const http = require("http");
+const socketIo = require("socket.io");
+const server = app.listen(port)
+const io = socketIo(server);
+
+// Watch party state
+let currentTime = 0;
+let isPlaying = false;
+
+io.on("connection", (socket) => {
+    console.log("a user has connected");
+
+    socket.emit("syncTime", currentTime);
+    socket.emit("playPauseUpdate", isPlaying);
+
+    socket.on("play", () => {
+        isPlaying = true;
+        io.emit("playPauseUpdate", isPlaying);
+    });
+
+    socket.on("pause", () => {
+        isPlaying = false;
+        io.emit("playPauseUpdate", isPlaying);
+    });
+
+    socket.on("seek", (time) => {
+        currentTime = time;
+        io.emit("syncTime", currentTime);
+    });
+
+    socket.on("disconnect", () => {
+        console.log("User disconnected");
+    });
 });
+
+setInterval(() => {
+    if (isPlaying) {
+        currentTime += 1;
+        io.emit("syncTime", currentTime);
+    }
+}, 1000);
+
+// io.on('connection', (socket) => {
+//     console.log('A user connected');
+  
+//     socket.on('video-time', (time) => {
+//       socket.broadcast.emit('sync-video-time', time);
+//     });
+
+//     socket.on("connect_error", (err) => {
+//         console.log(`connect_error due to ${err.message}`);
+//       });
+  
+//     socket.on('play', () => {
+//         console.log('play received')
+//         socket.broadcast.emit('play')
+//     });
+
+//     socket.on('pause', () => {
+//         console.log('pause received')
+//         socket.broadcast.emit('pause')
+//     });
+  
+//     socket.on('disconnect', () => {
+//       console.log('User disconnected');
+//     });
+//   });

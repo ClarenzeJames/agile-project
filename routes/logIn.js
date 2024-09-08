@@ -40,14 +40,12 @@ router.post("/", async (req,res,next) => {
                 req.session.userId = result[0].user_id
                 req.session.user_name = result[0].user_name
 
-                res.redirect("/profile/1")
+                res.redirect(`/profile/${req.session.userId}`)
             }
         })
     } catch (error) {
         next();
     }
-
-    // console.log(userEmail,password);
 })
 
 module.exports = router;

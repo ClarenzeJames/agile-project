@@ -6,7 +6,7 @@ router.get("/",async (req,res,next) => {
     const movieId = req.query.movieId;
     let relatedMovies = [];
     let relatedMoviesArray = []
-    console.log(movieId);
+    // console.log(movieId);
 
 
     queryString = `/movie/${movieId}?language=en-US`
@@ -14,7 +14,7 @@ router.get("/",async (req,res,next) => {
 
     relatedMovieQuery = `/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${currentMovie.genres[0].id}`
     relatedMovies = await apiCaller.genreAPI(relatedMovieQuery);
-    console.log(relatedMovies)
+    // console.log(relatedMovies)
 
     for(i=0;i < 10;i++){
         let relatedMoviesObj = {

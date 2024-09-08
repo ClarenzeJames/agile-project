@@ -20,6 +20,7 @@
     "express-session": "^1.18.0",
     "node-fetch2": "^1.6.3",
     "nodemon": "^3.1.4",
+    "socket.io": "^4.7.5",
     "sqlite3": "^5.1.2"
   },
   "engines": {

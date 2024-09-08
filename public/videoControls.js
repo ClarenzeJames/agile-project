@@ -1,16 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('movieVideo');
-    const playPauseBtn = document.getElementById('playPauseBtn');
+    // const playPauseBtn = document.getElementById('playPauseBtn');
+    const playBtn = document.getElementById('playBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
     const muteBtn = document.getElementById('muteBtn');
     const volumeSlider = document.querySelector('.volume-slider');
     const progressBar = document.querySelector('.progress-bar');
     const progress = document.querySelector('.progress');
 
-    playPauseBtn.addEventListener('click', togglePlayPause);
+    // playPauseBtn.addEventListener('click', togglePlayPause);
+    playBtn.addEventListener('click', playVideo);
+    pauseBtn.addEventListener('click', pauseVideo);
     muteBtn.addEventListener('click', toggleMute);
     volumeSlider.addEventListener('input', changeVolume);
     video.addEventListener('timeupdate', updateProgress);
     progress.addEventListener('click', seek);
+
+    function playVideo(){
+        video.play();
+    }
+
+    function pauseVideo(){
+        video.pause();
+    }
 
     function togglePlayPause() {
         if (video.paused) {

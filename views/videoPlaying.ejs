@@ -129,7 +129,9 @@
                     Your browser does not support the video tag.
                 </video>
                 <div class="video-controls">
-                    <button id="playPauseBtn">&#9654;</button>
+                    <!-- <button id="playPauseBtn">&#10074;&#10074;</button> -->
+                    <button id="playBtn">&#9654;</button>
+                    <button id="pauseBtn">&#10074;&#10074;</button>
                     <div class="progress">
                         <div class="progress-bar"></div>
                     </div>
@@ -189,6 +191,9 @@
             </div>
         </div>
 
+        <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
         <script src="videoControls.js"></script>
+        <script src="client.js"></script>
+        
     </body>
 </html>
