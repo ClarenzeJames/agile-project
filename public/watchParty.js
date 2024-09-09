@@ -1,3 +1,5 @@
+// /public/watchParty.js
+
 const socket = io('http://localhost:3000');
 const videoPlayer = document.getElementById('movieVideo');
 

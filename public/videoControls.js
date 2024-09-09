@@ -1,3 +1,5 @@
+// /public/videoControls.js
+
 document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('movieVideo');
     // const playPauseBtn = document.getElementById('playPauseBtn');

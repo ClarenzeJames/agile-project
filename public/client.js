@@ -1,3 +1,5 @@
+// /public/client.js
+
 const socket = io();
 const video = document.getElementById('movieVideo');
 const playBtn = document.getElementById('playBtn');

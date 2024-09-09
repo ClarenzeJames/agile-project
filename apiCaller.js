@@ -26,9 +26,6 @@ async function genreAPI(param){
     let result;
 
     response = await fetch(genreURL, options)
-        // .then(res => res.json())
-        // .then(json => {result = json})
-        // .catch(err => console.error('error:' + err));
 
     result = await response.json()
     return result

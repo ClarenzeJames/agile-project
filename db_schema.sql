@@ -41,18 +41,7 @@ CREATE TABLE IF NOT EXISTS comments (
     FOREIGN KEY (show_id) REFERENCES shows(show_id)
 );
 
--- Insert default data (if necessary here)
-
 -- Set up three users
 INSERT INTO users ('user_name','user_email','user_password') VALUES ('Simon Star','simonStar@mail.com','password');
 INSERT INTO user_favourites('user_id','favourites') VALUES (1,'[533535,1022789, 519182, 573435, 365177, 1160018]');
--- INSERT INTO users ('user_name','user_password') VALUES ('John Bob','password');
--- INSERT INTO users ('user_name','user_password') VALUES ('Steven Perry','password');
-
--- Give Simon two email addresses and Diane one, but Harry has none
--- INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('simon@gmail.com', 1); 
--- INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('simon@hotmail.com', 1); 
--- INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('dianne@yahoo.co.uk', 2); 
-
 COMMIT;
-
