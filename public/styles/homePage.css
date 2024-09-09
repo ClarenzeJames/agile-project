@@ -1,0 +1,72 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: white;
+}
+
+/* Container holding the entire carousel */
+.netflix-carousel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Carousel wrapper */
+.carousel-inner {
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* Individual carousel items */
+.carousel-item {
+    flex: 0 0 auto;
+    width: 200px;
+    transition: transform 0.3s;
+    margin: 0 5px;
+}
+
+/* Scale-up effect on hover */
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.carousel-item:hover img {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Custom control styles */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 15px;
+    border-radius: 50%;
+}
+
+/* Category Buttons */
+.genre-button.active {
+    background-color: #007bff;
+    color: white;
+}
+.genre-button.inactive {
+    background-color: #ffffff;
+    color: #000;
+}
+
+.categories {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+.categories button {
+    background-color: #4B1651;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 20px;
+}

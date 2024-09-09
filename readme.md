@@ -1,210 +1,26 @@
-API Access point: https://api.themoviedb.org/3
-Image Access point: https://image.tmdb.org/t/p/w500/
+## CM2020 FINAL PROJECT ##
 
-### Params:
-1. movie details: 
-   - /movie/{movie_id} eg. 278
-2. movie images:
-   - /movie/{movie_id}/images eg. 278
-3. Searching by movie keyword:
-   - /movie?query={queryString}&include_adult=false&language=en-US&primary_release_year={releaseYear}&page=1
-   - Params:
-     - {queryString} -- for movie title
-     - {releaseYear} -- for release year
-4. Popular:
-   - /movie/popular?language=en-US&page={pageNumber}
-   - Params:
-     - {pageNumber} -- for the page number
-   - Trending: 
-     - /trending/movie/week?language=en-US
-5. Latest:
-   - /movie/latest
-6. List:
-   - /genre/movie/list
-   ```
-   {
-    "genres": [
-    {
-      "id": 28,
-      "name": "Action"
-    },
-    {
-      "id": 12,
-      "name": "Adventure"
-    },
-    {
-      "id": 16,
-      "name": "Animation"
-    },
-    {
-      "id": 35,
-      "name": "Comedy"
-    },
-    {
-      "id": 80,
-      "name": "Crime"
-    },
-    {
-      "id": 99,
-      "name": "Documentary"
-    },
-    {
-      "id": 18,
-      "name": "Drama"
-    },
-    {
-      "id": 10751,
-      "name": "Family"
-    },
-    {
-      "id": 14,
-      "name": "Fantasy"
-    },
-    {
-      "id": 36,
-      "name": "History"
-    },
-    {
-      "id": 27,
-      "name": "Horror"
-    },
-    {
-      "id": 10402,
-      "name": "Music"
-    },
-    {
-      "id": 9648,
-      "name": "Mystery"
-    },
-    {
-      "id": 10749,
-      "name": "Romance"
-    },
-    {
-      "id": 878,
-      "name": "Science Fiction"
-    },
-    {
-      "id": 10770,
-      "name": "TV Movie"
-    },
-    {
-      "id": 53,
-      "name": "Thriller"
-    },
-    {
-      "id": 10752,
-      "name": "War"
-    },
-    {
-      "id": 37,
-      "name": "Western"
-    }]}
+### Dependencies Added ###
+1. Express
+2. EJS
+3. Node-fetch2
+4. sqlite3
+5. Express-session
+6. dotenv
+7. socket.io
 
-   ```
+### Entry to the website ###
+* Accessing the website is through http://localhost:3000/
 
-   <% movies.forEach((movie, index) => { %>
-                <% if (movie.genre === selectedGenre) { %>
-                    <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
-                    <img src="<%= movie.image %>" class="d-block w-100" alt="<%= movie.title %>">
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5><%= movie.title %></h5>
-                    </div>
-                    </div>
-                <% } %>
-                <% }) %>
+#### Getting the application running ####
 
-For watch history
-"results": [
-    {
-      "id": 1336683,
-      "adult": true
-    },
-    {
-      "id": 344627,
-      "adult": true
-    },
-    {
-      "id": 1336677,
-      "adult": false
-    },
-    {
-      "id": 1336688,
-      "adult": false
-    },
-    {
-      "id": 1292670,
-      "adult": false
-    },
-    {
-      "id": 1292677,
-      "adult": false
-    },
-    {
-      "id": 1336687,
-      "adult": false
-    },
-    {
-      "id": 819277,
-      "adult": false
-    },
-    {
-      "id": 1323150,
-      "adult": false
-    },
-    {
-      "id": 1336352,
-      "adult": false
-    },
-    {
-      "id": 1081088,
-      "adult": false
-    }]
+* Run ```npm install``` from the project directory to install all the node packages.
 
-for liked shows:
-{
-      "id": 1220808,
-      "adult": false
-    },
-    {
-      "id": 1263763,
-      "adult": false
-    },
-    {
-      "id": 1302057,
-      "adult": false
-    },
-    {
-      "id": 1310507,
-      "adult": false
-    },
-    {
-      "id": 1319086,
-      "adult": false
-    },
-    {
-      "id": 1319482,
-      "adult": false
-    },
-    {
-      "id": 1320330,
-      "adult": false
-    },
-    {
-      "id": 1320541,
-      "adult": false
-    },
-    {
-      "id": 1323921,
-      "adult": false
-    },
-    {
-      "id": 1323934,
-      "adult": false
-    },
-    {
-      "id": 1323943,
-      "adult": false
-    }
+* Run ```npm run build-db``` to create the database on Mac or Linux 
+or run ```npm run build-db-win``` to create the database on Windows
 
-    533535,1022789, 519182, 573435, 365177, 1160018
+* Run ```npm run start``` to start serving the web app (Access via http://localhost:3000)
+
+You can also run: 
+```npm run clean-db``` to delete the database on Mac or Linux before rebuilding it for a fresh start
+```npm run clean-db-win``` to delete the database on Windows before rebuilding it for a fresh start

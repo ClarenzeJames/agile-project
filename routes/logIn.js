@@ -12,6 +12,7 @@ function queryDB(query){
             }else{
                 console.log("success in the query")
                 resolve(results)
+                console.log(results)
             }
         })
     })
